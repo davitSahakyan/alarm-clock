@@ -18,11 +18,16 @@ const inputedSeconds = document.getElementById("seconds");
 const alarmHours = document.getElementById("alarmHours");
 const alarmMinutes = document.getElementById("alarmMinutes");
 const alarmSeconds = document.getElementById("alarmSeconds");
-//
+
 let newDateCreated = false;
 let clockTime;
 let createdAlarmTime;
 let alarmExists = false;
+
+let date = new Date();
+let hours = date.getHours();
+let minutes = date.getMinutes();
+let seconds = date.getSeconds();
 
 // CONSTANT
 
@@ -40,30 +45,7 @@ removeSpace = (string) => {
     return stringWithoutSpaces;
 };
 
-setTimeout(function interval() {
-    let date = new Date();
-
-    let hours = date.getHours();
-
-    let minutes = date.getMinutes();
-
-    let seconds = date.getSeconds();
-
-    if (
-        createdAlarmTime ===
-        addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds)
-    ) {
-        alarmIsRingingImageContainer.style.display = "block";
-        alarmIsSetImageContainer.style.display = "none";
-    }
-
-    timeDiv.textContent =
-        addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
-    console.log("ffff");
-    if (!newDateCreated) {
-        setTimeout(interval, 1000);
-    }
-}, 1000);
+newTimeInterval(hours, minutes, seconds);
 
 function addZero(time) {
     return time < 10 ? "0" + time : time;
@@ -122,53 +104,61 @@ alarmSeconds.addEventListener("input", () =>
     validateMinutesAndSeconds(alarmSeconds)
 );
 
+function newTimeInterval(inputedHours, inputedMinutes, inputedSeconds) {
+    //  time changing part
+    if (inputedSeconds < 60) {
+        inputedSeconds = inputedSeconds + 1;
+    } else {
+        inputedMinutes = inputedMinutes + 1;
+        inputedSeconds = 0;
+    }
+
+    if (inputedMinutes === 60) {
+        inputedMinutes = 0;
+        inputedHours = inputedHours + 1;
+    }
+
+    if (inputedHours === 24) {
+        inputedHours = 0;
+    }
+
+    // Clock time
+    if (
+        createdAlarmTime ===
+        addZero(inputedHours) +
+            ":" +
+            addZero(inputedMinutes) +
+            ":" +
+            addZero(inputedSeconds)
+    ) {
+        alarmIsRingingImageContainer.style.display = "block";
+        alarmIsSetImageContainer.style.display = "none";
+    }
+    // time changing part ends here
+    timeDiv.textContent =
+        addZero(inputedHours) +
+        ":" +
+        addZero(inputedMinutes) +
+        ":" +
+        addZero(inputedSeconds);
+    setTimeout(() => {
+        newTimeInterval(inputedHours, inputedMinutes, inputedSeconds);
+    }, 1000);
+}
+
 // Validation part end
 
 handleStartClick = () => {
     newDateCreated = true;
+    let id = window.setTimeout(function () {}, 0);
+
+    while (id--) {
+        window.clearTimeout(id);
+    }
     let inputedHours = +document.getElementById("hours").value;
     let inputedMinutes = +document.getElementById("minutes").value;
     let inputedSeconds = +document.getElementById("seconds").value;
-
-    setTimeout(function newTimeInterval() {
-        //  time changing part
-        if (inputedSeconds < 60) {
-            inputedSeconds = inputedSeconds + 1;
-        } else {
-            inputedMinutes = inputedMinutes + 1;
-            inputedSeconds = 0;
-        }
-
-        if (inputedMinutes === 60) {
-            inputedMinutes = 0;
-            inputedHours = inputedHours + 1;
-        }
-
-        if (inputedHours === 24) {
-            inputedHours = 0;
-        }
-
-        // Clock time
-        if (
-            createdAlarmTime ===
-            addZero(inputedHours) +
-                ":" +
-                addZero(inputedMinutes) +
-                ":" +
-                addZero(inputedSeconds)
-        ) {
-            alarmIsRingingImageContainer.style.display = "block";
-            alarmIsSetImageContainer.style.display = "none";
-        }
-        // time changing part ends here
-        timeDiv.textContent =
-            addZero(inputedHours) +
-            ":" +
-            addZero(inputedMinutes) +
-            ":" +
-            addZero(inputedSeconds);
-        setTimeout(newTimeInterval, 1000);
-    }, 1000);
+    newTimeInterval(inputedHours, inputedMinutes, inputedSeconds);
 };
 // HANDLE ALARM CLICK
 
