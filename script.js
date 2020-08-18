@@ -7,21 +7,24 @@ const alarmIsRingingImageContainer = document.getElementById(
     "alarmIsRingingImageContainer"
 );
 const alarmTime = document.getElementById("alarmTime");
-let alarmNameInput = document.getElementById("alarmName");
+const alarmNameInput = document.getElementById("alarmName");
 const alertText = document.getElementById("alertText");
 
 // time input
-let inputedHours = document.getElementById("hours");
-let inputedMinutes = document.getElementById("minutes");
-let inputedSeconds = document.getElementById("seconds");
+const inputedHours = document.getElementById("hours");
+const inputedMinutes = document.getElementById("minutes");
+const inputedSeconds = document.getElementById("seconds");
 // alarm input
-let alarmHours = document.getElementById("alarmHours");
-let alarmMinutes = document.getElementById("alarmMinutes");
-let alarmSeconds = document.getElementById("alarmSeconds");
+const alarmHours = document.getElementById("alarmHours");
+const alarmMinutes = document.getElementById("alarmMinutes");
+const alarmSeconds = document.getElementById("alarmSeconds");
 //
+let newDateCreated = false;
 let clockTime;
 let createdAlarmTime;
 let alarmExists = false;
+
+// CONSTANT
 
 const ALERT_TEXT = "You have already set alarm time";
 const ALERT_TEXT_REQUIRED = "required";
@@ -36,8 +39,8 @@ removeSpace = (string) => {
     const stringWithoutSpaces = string.replace(/\s+/, "");
     return stringWithoutSpaces;
 };
-// ////////////
-let currentTime = setInterval(() => {
+
+setTimeout(function interval() {
     let date = new Date();
 
     let hours = date.getHours();
@@ -45,11 +48,6 @@ let currentTime = setInterval(() => {
     let minutes = date.getMinutes();
 
     let seconds = date.getSeconds();
-
-    // console.log(createdAlarmTime);
-    // console.log(
-    //     addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds)
-    // );
 
     if (
         createdAlarmTime ===
@@ -61,6 +59,10 @@ let currentTime = setInterval(() => {
 
     timeDiv.textContent =
         addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+    console.log("ffff");
+    if (!newDateCreated) {
+        setTimeout(interval, 1000);
+    }
 }, 1000);
 
 function addZero(time) {
@@ -123,13 +125,12 @@ alarmSeconds.addEventListener("input", () =>
 // Validation part end
 
 handleStartClick = () => {
-    clearInterval(currentTime);
-
+    newDateCreated = true;
     let inputedHours = +document.getElementById("hours").value;
     let inputedMinutes = +document.getElementById("minutes").value;
     let inputedSeconds = +document.getElementById("seconds").value;
 
-    let myTimeInterval = setInterval(() => {
+    setTimeout(function newTimeInterval() {
         //  time changing part
         if (inputedSeconds < 60) {
             inputedSeconds = inputedSeconds + 1;
@@ -166,6 +167,7 @@ handleStartClick = () => {
             addZero(inputedMinutes) +
             ":" +
             addZero(inputedSeconds);
+        setTimeout(newTimeInterval, 1000);
     }, 1000);
 };
 // HANDLE ALARM CLICK
@@ -175,8 +177,9 @@ handleAlarmCreateClick = () => {
         alarmName.placeholder = ALERT_TEXT_REQUIRED;
         return "";
     }
-    alarmIsSetImageContainer.style.display = "block";
+
     if (!createdAlarmTime) {
+        alarmIsSetImageContainer.style.display = "block";
         createdAlarmTime =
             addZero(alarmHours.value) +
             ":" +
