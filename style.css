@@ -1,0 +1,15 @@
+#clockContainer {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#timeInputPart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.timeInput {
+    width: 2.5rem;
+}

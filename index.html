@@ -10,7 +10,35 @@
         <div id="container">
             <div id="clockContainer">
                 <div id="time"></div>
-                <div id="timeInputPart"></div>
+                <div>Start time</div>
+                <div id="timeInputPart">
+                    <input
+                        type="number"
+                        id="hours"
+                        class="timeInput"
+                        min="0"
+                        max="24"
+                        step="1"
+                    />
+                    <span>:</span>
+                    <input
+                        type="number"
+                        id="minutes"
+                        class="timeInput"
+                        min="0"
+                        max="60"
+                        step="1"
+                    />
+                    <span>:</span>
+                    <input
+                        type="number"
+                        id="seconds"
+                        class="timeInput"
+                        min="0"
+                        max="60"
+                        step="1"
+                    />
+                </div>
                 <div id="setTimeButtonContainer">
                     <button id="setTimeButton">Start</button>
                 </div>
