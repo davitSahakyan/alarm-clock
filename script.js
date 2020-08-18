@@ -26,8 +26,8 @@ function addZero(time) {
 validateHours = () => {
     const hours = inputedHours.value;
     inputedHours.value = Math.round(hours);
-    if (hours > 24) {
-        inputedHours.value = 24;
+    if (hours > 23) {
+        inputedHours.value = 23;
     } else if (hours < 0) {
         inputedHours.value = 0;
     }
@@ -53,11 +53,40 @@ inputedSeconds.addEventListener("input", () =>
 // Validation part end
 
 handleStartClick = () => {
-    let inputedHours = document.getElementById("hours").value;
-    let inputedMinutes = document.getElementById("minutes").value;
-    let inputedSeconds = document.getElementById("seconds").value;
+    clearInterval(currentTime);
 
-    console.log(inputedHours, inputedMinutes, inputedSeconds);
+    let inputedHours = +document.getElementById("hours").value;
+    let inputedMinutes = +document.getElementById("minutes").value;
+    let inputedSeconds = +document.getElementById("seconds").value;
+
+    let myTimeInterval = setInterval(() => {
+        if (inputedSeconds < 60) {
+            inputedSeconds = inputedSeconds + 1;
+        } else {
+            inputedMinutes = inputedMinutes + 1;
+            inputedSeconds = 0;
+        }
+
+        if (inputedMinutes === 60) {
+            inputedMinutes = 0;
+            inputedHours = inputedHours + 1;
+        }
+
+        if (inputedHours === 24) {
+            inputedHours = 0;
+        }
+
+        timeDiv.textContent =
+            addZero(inputedHours) +
+            ":" +
+            addZero(inputedMinutes) +
+            ":" +
+            addZero(inputedSeconds);
+    }, 1000);
+
+    function addZero(time) {
+        return time < 10 ? "0" + time : time;
+    }
 };
 
 const setTimeButton = document.getElementById("setTimeButton");
