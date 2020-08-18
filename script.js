@@ -1,4 +1,5 @@
 const timeDiv = document.getElementById("time");
+const setTimeButton = document.getElementById("setTimeButton");
 
 let inputedHours = document.getElementById("hours");
 let inputedMinutes = document.getElementById("minutes");
@@ -31,16 +32,21 @@ validateHours = () => {
     } else if (hours < 0) {
         inputedHours.value = 0;
     }
+
+    setTimeButton.disabled = false;
 };
 validateMinutesAndSeconds = (input) => {
     let value = input.value;
     input.value = Math.round(value);
-    if (value > 60) {
-        input.value = 60;
+    if (value > 59) {
+        input.value = 59;
     } else if (value < 0) {
         input.value = 0;
     }
+    setTimeButton.disabled = false;
 };
+
+// ON INPUT
 
 inputedHours.addEventListener("input", validateHours);
 inputedMinutes.addEventListener("input", () =>
@@ -60,6 +66,7 @@ handleStartClick = () => {
     let inputedSeconds = +document.getElementById("seconds").value;
 
     let myTimeInterval = setInterval(() => {
+        //  time changing part
         if (inputedSeconds < 60) {
             inputedSeconds = inputedSeconds + 1;
         } else {
@@ -75,7 +82,7 @@ handleStartClick = () => {
         if (inputedHours === 24) {
             inputedHours = 0;
         }
-
+        // time changing part ends here
         timeDiv.textContent =
             addZero(inputedHours) +
             ":" +
@@ -89,5 +96,5 @@ handleStartClick = () => {
     }
 };
 
-const setTimeButton = document.getElementById("setTimeButton");
+setTimeButton.disabled = true;
 setTimeButton.addEventListener("click", handleStartClick);
