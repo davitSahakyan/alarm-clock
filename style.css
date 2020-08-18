@@ -1,3 +1,7 @@
+#container {
+    display: flex;
+    justify-content: center;
+}
 #clockContainer {
     width: 30%;
     display: flex;
@@ -5,11 +9,38 @@
     justify-content: center;
     align-items: center;
 }
-#timeInputPart {
+.timeInput {
+    width: 2.5rem;
+}
+.inputPart {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.timeInput {
-    width: 2.5rem;
+
+#alarmContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#alarmIsSetImageContainer {
+    max-width: 50px;
+    display: none;
+}
+#alarmIsRingingImageContainer {
+    max-width: 50px;
+    display: none;
+}
+#alramNameContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+}
+#alertText {
+    color: red;
+}
+.alertText {
+    color: red;
 }

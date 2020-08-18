@@ -11,7 +11,7 @@
             <div id="clockContainer">
                 <div id="time"></div>
                 <div>Start time</div>
-                <div id="timeInputPart">
+                <div id="timeInputPart" class="inputPart">
                     <input
                         type="number"
                         id="hours"
@@ -19,6 +19,7 @@
                         min="0"
                         max="24"
                         step="1"
+                        value="0"
                     />
                     <span>:</span>
                     <input
@@ -28,6 +29,7 @@
                         min="0"
                         max="60"
                         step="1"
+                        value="0"
                     />
                     <span>:</span>
                     <input
@@ -37,14 +39,79 @@
                         min="0"
                         max="60"
                         step="1"
+                        value="0"
                     />
                 </div>
                 <div id="setTimeButtonContainer">
                     <button id="setTimeButton">Start</button>
                 </div>
             </div>
-
-            <div id="alarm-container"></div>
+            <!--              ALARM PART                -->
+            <div id="alarmContainer">
+                <div id="alarmIsRingingImageContainer">
+                    <img
+                        src="./images/—Pngtree—alarm clock ringing cheerfully_4664136.png"
+                        width="100%"
+                    />
+                </div>
+                <div id="alarmIsSetImageContainer">
+                    <img
+                        src="./images/Alarm-PNG-Transparent-File.png"
+                        width="100%"
+                    />
+                </div>
+                <div>
+                    <h2>Alarm</h2>
+                    <h3 id="alarmTime"></h3>
+                </div>
+                <div id="alramNameContainer">
+                    <span>Name *</span>
+                    <input type="text" id="alarmName" />
+                </div>
+                <div>
+                    <span>Time *</span>
+                    <div class="inputPart">
+                        <input
+                            type="number"
+                            id="alarmHours"
+                            class="timeInput"
+                            min="0"
+                            max="24"
+                            step="1"
+                            value="0"
+                        />
+                        <span>:</span>
+                        <input
+                            type="number"
+                            id="alarmMinutes"
+                            class="timeInput"
+                            min="0"
+                            max="60"
+                            step="1"
+                            value="0"
+                        />
+                        <span>:</span>
+                        <input
+                            type="number"
+                            id="alarmSeconds"
+                            class="timeInput"
+                            min="0"
+                            max="60"
+                            step="1"
+                            value="0"
+                        />
+                    </div>
+                </div>
+                <div id="alarmCreateBtnContainer">
+                    <button id="alarmCreateBtn">Create</button>
+                </div>
+                <div>
+                    <p id="alertText"></p>
+                </div>
+                <div>
+                    <p class="alertText">* - required</p>
+                </div>
+            </div>
         </div>
         <script src="./script.js"></script>
     </body>
